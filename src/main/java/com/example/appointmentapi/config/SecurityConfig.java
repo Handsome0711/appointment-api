@@ -2,7 +2,7 @@ package com.example.appointmentapi.config;
 
 import com.example.appointmentapi.filter.JwtAuthenticationFilter;
 import com.example.appointmentapi.filter.JwtAuthorizationFilter;
-import com.example.appointmentapi.service.MyUserDetailService;
+import com.example.appointmentapi.security.MyUserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers( "/").permitAll()
+                .antMatchers("/", "/registration").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
@@ -42,19 +42,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user2")
-                .password(getEncoder().encode("user"))
-                .authorities("ROLE_STUDENT", "ROLE_TEACHER");
-//        auth.userDetailsService(myUserDetailService)
-//        .passwordEncoder(getEncoder());
+        auth.userDetailsService(myUserDetailService)
+                .passwordEncoder(getEncoder());
     }
 
     @Bean
     public PasswordEncoder getEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
