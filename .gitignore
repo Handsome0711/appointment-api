@@ -4,6 +4,19 @@ target/
 !**/src/main/**
 !**/src/test/**
 
+
+/.mvn/
+/mvnw
+/mvnw.bat
+mvnw.cmd
+/log/
+*.log*
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.next
+release.properties
+
+
 ### STS ###
 .apt_generated
 .classpath
