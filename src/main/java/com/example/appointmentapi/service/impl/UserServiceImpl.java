@@ -22,4 +22,9 @@ public class UserServiceImpl implements UserService {
     public User save(User user) {
         return userRepo.save(user);
     }
+
+    @Override
+    public void flush() {
+        userRepo.flush();
+    }
 }

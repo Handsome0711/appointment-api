@@ -1,6 +1,7 @@
 package com.example.appointmentapi.controller;
 
 import com.example.appointmentapi.model.Role;
+import com.example.appointmentapi.model.Teacher;
 import com.example.appointmentapi.model.User;
 import com.example.appointmentapi.service.RoleService;
 import com.example.appointmentapi.service.UserService;
@@ -44,7 +45,7 @@ public class InjectDataController {
 
     @PostConstruct
     public void injectTeacher() {
-        User teacher = new User();
+        User teacher = new Teacher();
         Set<Role> roles = new HashSet<>();
         roles.add(roleService.findByRoleName(Role.RoleName.TEACHER));
         teacher.setEmail("new.teacher@gmail.com");
